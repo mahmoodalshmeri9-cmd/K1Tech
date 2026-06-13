@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="متجر K1 Tech - متجرك المتكامل لزيادة الفريمات (Tweaks)، اشتراكات IPTV، صيانة وتجميع الـ PC، ومكتبة ألعاب Steam بأسعار تنافسية وأداء خارق.">
+    <title>K1 Tech | السرعة، الأداء، والترفيه اللامحدود</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Outfit:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="bg-radial-glow"></div>
+    <div class="bg-mesh"></div>
+
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="logo-container" id="nav-logo">
+                <span class="logo-text">K1<span class="logo-accent">TECH</span></span>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active" data-tab="home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+                <a href="#tweaks" class="nav-link" data-tab="tweaks"><i class="fa-solid fa-gauge-high"></i> التويك
+                    والتحسين</a>
+                <a href="#iptv" class="nav-link" data-tab="iptv"><i class="fa-solid fa-tv"></i> اشتراكات IPTV</a>
+                <a href="#repair" class="nav-link" data-tab="repair"><i class="fa-solid fa-screwdriver-wrench"></i>
+                    صيانة PC</a>
+                <a href="#steam" class="nav-link" data-tab="steam"><i class="fa-solid fa-gamepad"></i> ألعاب Steam</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="cart-btn" id="cart-toggle-btn" aria-label="سلة المشتريات">
+                    <i class="fa-solid fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cart-badge-count">0</span>
+                </button>
+                <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="القائمة">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+
+        <!-- 1. HOME SECTION -->
+        <section id="home-section" class="tab-content active-tab">
+            <div class="hero-section">
+                <div class="hero-text">
+                    <div class="status-pill">
+                        <span class="status-dot"></span>
+                        أنظمة وسيرفرات K1 Tech تعمل بكامل كفاءتها
+                    </div>
+                    <h1 class="hero-title">ارتقِ بأداء جهازك وعالمك الترفيهي إلى <span
+                            class="neon-gradient-text">المستوى الأقصى</span></h1>
+                    <p class="hero-subtitle">تعديلات لزيادة فريمات الألعاب، اشتراكات IPTV عالية الجودة بدون تقطيع، صيانة
+                        احترافية للـ PC، وأكبر مكتبة لتفعيل ألعاب Steam في مكان واحد.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="switchTab('tweaks')">
+                            <i class="fa-solid fa-rocket"></i> استكشف خدمات التويك
+                        </button>
+                        <button class="btn btn-secondary" onclick="switchTab('repair')">
+                            <i class="fa-solid fa-laptop-medical"></i> تشخيص مشاكل جهازك
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-card-wrapper">
+                        <div class="floating-card tweak-card-float">
+                            <i class="fa-solid fa-bolt text-cyan"></i>
+                            <div>
+                                <h4>تحسين الفريمات</h4>
+                                <p>FPS Boost +45%</p>
+                            </div>
+                        </div>
+                        <div class="floating-card iptv-card-float">
+                            <i class="fa-solid fa-circle-play text-purple"></i>
+                            <div>
+                                <h4>بث IPTV ذكي</h4>
+                                <p>دقة 4K فائقة السرعة</p>
+                            </div>
+                        </div>
+                        <div class="hero-circle-glow">
+                            <i class="fa-solid fa-gamepad main-gamepad-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Features Showcase Grid -->
+            <div class="section-header">
+                <h2>لماذا تختار <span class="neon-gradient-text">K1 Tech</span>؟</h2>
+                <p>نقدم خدمات مصممة بأحدث التقنيات وأقوى أداء لضمان رضاك التام</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon bg-cyan-glow">
+                        <i class="fa-solid fa-gauge-simple-high"></i>
+                    </div>
+                    <h3>أداء فائق السرعة</h3>
+                    <p>كود برمجي محسن، وسيرفرات IPTV مستقرة ذات نطاق ترددي عريض لتضمن تشغيل فوري وبدون تقطيع.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon bg-purple-glow">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3>أمان وضمان 100%</h3>
+                    <p>جميع ملفات التويك آمنة كلياً ومجربة ضد الباند، واشتراكاتنا تأتي مع ضمان كامل للمدة المتفق عليها.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon bg-green-glow">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3>دعم فني متواصل</h3>
+                    <p>فريق فني متخصص بالصيانة والتجميعات متواجد لمساعدتك عبر الواتساب في أي وقت.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 2. TWEAKS SHOP SECTION -->
+        <section id="tweaks-section" class="tab-content">
+            <div class="section-header">
+                <h2>باقات <span class="neon-gradient-text">تحسين الـ PC والألعاب</span></h2>
+                <p>تخلص من الـ Input Lag وضاعف الفريمات بلمسة احترافية آمنة تماماً</p>
+            </div>
+
+            <div class="tweaks-container">
+                <!-- Tweaks Cards Grid -->
+                <div class="products-grid" id="tweaks-grid">
+                    <!-- Dynamic injection via app.js -->
+                </div>
+
+                <!-- Tweak Side Details / Info -->
+                <div class="tweak-info-box glass-panel">
+                    <h3>كيف يعمل التويك الخاص بنا؟</h3>
+                    <ul class="info-list">
+                        <li><i class="fa-solid fa-check text-cyan"></i> <strong>تنظيف كلي لملفات النظام:</strong> إزالة
+                            المخلفات وتحسين الريجستري لجعل الويندوز خفيفاً.</li>
+                        <li><i class="fa-solid fa-check text-cyan"></i> <strong>تخفيض زمن الاستجابة (Latency):</strong>
+                            تعديل إعدادات كارت الشبكة والماوس والكيبورد لاستجابة فورية.</li>
+                        <li><i class="fa-solid fa-check text-cyan"></i> <strong>تحسين استهلاك الرام والمعالج:</strong>
+                            إيقاف الخدمات الخلفية غير الضرورية وتركيز الموارد على اللعبة.</li>
+                        <li><i class="fa-solid fa-check text-cyan"></i> <strong>ضبط إعدادات كارت الشاشة
+                                (NVIDIA/AMD):</strong> تهيئة لوحة التحكم لأعلى فريمات ممكنة مع الحفاظ على وضوح الصورة.
+                        </li>
+                    </ul>
+                    <div class="tweak-comparison">
+                        <h4>مقارنة افتراضية للفريمات بعد التعديل</h4>
+                        <div class="compare-bar-container">
+                            <span class="compare-label">قبل التعديل (ألعاب الشوتر)</span>
+                            <div class="compare-bar-bg">
+                                <div class="compare-bar-fill before" style="width: 55%">144 FPS</div>
+                            </div>
+                        </div>
+                        <div class="compare-bar-container">
+                            <span class="compare-label text-cyan">بعد تويك K1 Tech Ultra</span>
+                            <div class="compare-bar-bg animate-glow">
+                                <div class="compare-bar-fill after" style="width: 95%">260+ FPS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 3. IPTV SECTION -->
+        <section id="iptv-section" class="tab-content">
+            <div class="section-header">
+                <h2>اشتراكات <span class="neon-gradient-text">IPTV المميزة</span></h2>
+                <p>تابع مبارياتك المفضلة وأحدث الأفلام والمسلسلات بدقة 4K بدون تقطيع</p>
+            </div>
+
+            <!-- IPTV Channel Search Simulator -->
+            <div class="channel-checker glass-panel">
+                <h3><i class="fa-solid fa-tv text-purple"></i> ابحث عن قناتك المفضلة لتتأكد من وجودها</h3>
+                <p>تضم باقاتنا أكثر من 12 ألف قناة مشفرة ومفتوحة ومكتبة ضخمة متجددة يومياً</p>
+                <div class="search-box-wrapper">
+                    <input type="text" id="channel-search-input"
+                        placeholder="اكتب اسم القناة (مثال: beIN, SSC, Netflix, OSN)...">
+                    <button class="btn btn-purple" id="channel-search-btn">تحقق الآن</button>
+                </div>
+                <div class="channel-results" id="channel-results-box">
+                    <!-- Dynamic Search Results -->
+                </div>
+            </div>
+
+            <!-- IPTV Pricing Grid -->
+            <div class="iptv-grid" id="iptv-packages-grid">
+                <!-- Dynamic injection via app.js -->
+            </div>
+
+            <!-- Quality Badges -->
+            <div class="iptv-features-bar">
+                <div class="iptv-badge-item">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>ثبات عالي وقت المباريات</span>
+                </div>
+                <div class="iptv-badge-item">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>تحديث مستمر للمكتبة</span>
+                </div>
+                <div class="iptv-badge-item">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span>يعمل على جميع الأجهزة الذكية</span>
+                </div>
+                <div class="iptv-badge-item">
+                    <i class="fa-solid fa-headphones-simple"></i>
+                    <span>دعم وتفعيل خلال 10 دقائق</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 4. PC REPAIR SECTION -->
+        <section id="repair-section" class="tab-content">
+            <div class="section-header">
+                <h2>مساعد <span class="neon-gradient-text">تشخيص وصيانة الـ PC</span></h2>
+                <p>هل تعاني من بطء جهازك أو ارتفاع الحرارة؟ شخص مشكلتك واحجز موعداً لصيانتها فوراً</p>
+            </div>
+
+            <div class="repair-container">
+                <!-- Left: Diagnostic Assistant -->
+                <div class="diagnostic-wizard glass-panel">
+                    <h3><i class="fa-solid fa-robot text-cyan"></i> مشخّص الأعطال الذكي</h3>
+                    <p>اختر العرض الذي يظهر على جهازك لمعرفة التشخيص المبدئي والحل المقترح:</p>
+
+                    <div class="symptom-selector">
+                        <button class="symptom-btn" data-symptom="overheat">
+                            <i class="fa-solid fa-temperature-high"></i> الحرارة مرتفعة جداً
+                        </button>
+                        <button class="symptom-btn" data-symptom="bsod">
+                            <i class="fa-solid fa-circle-exclamation"></i> شاشة زرقاء متكررة (BSOD)
+                        </button>
+                        <button class="symptom-btn" data-symptom="fps_drop">
+                            <i class="fa-solid fa-chart-line-down"></i> هبوط فريمات مفاجئ أثناء اللعب
+                        </button>
+                        <button class="symptom-btn" data-symptom="slow_boot">
+                            <i class="fa-solid fa-hourglass-half"></i> الجهاز بطيء جداً عند التشغيل
+                        </button>
+                    </div>
+
+                    <div class="diagnostic-result" id="diagnostic-result-panel">
+                        <div class="result-placeholder">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                            <p>اضغط على أحد الأعراض بالأعلى لتشغيل الفحص التلقائي...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Booking Form -->
+                <div class="booking-form-panel glass-panel">
+                    <h3><i class="fa-solid fa-calendar-check text-green"></i> طلب صيانة / تجميع PC</h3>
+                    <p>املأ البيانات وسيقوم مهندس صيانة من K1 Tech بالتواصل معك لتحديد موعد تسليم الجهاز أو الصيانة
+                        المنزلية.</p>
+
+                    <form id="pc-booking-form">
+                        <div class="form-group">
+                            <label for="book-name">الاسم الكريم</label>
+                            <input type="text" id="book-name" required placeholder="أدخل اسمك الكامل">
+                        </div>
+                        <div class="form-group">
+                            <label for="book-phone">رقم الجوال (واتساب)</label>
+                            <input type="tel" id="book-phone" required placeholder="05xxxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label for="book-service">نوع الخدمة المطلوبة</label>
+                            <select id="book-service" required>
+                                <option value="" disabled selected>اختر الخدمة</option>
+                                <option value="repair">صيانة جهاز وحل مشكلة برمجية/هاردوير</option>
+                                <option value="assembly">تجميع PC جديد وتركيبه</option>
+                                <option value="clean_repaste">تنظيف كامل وتغيير المعجون الحراري</option>
+                                <option value="install_windows_tweaks">تثبيت ويندوز أصلي مع التويك الاحترافي</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-specs">مواصفات جهازك الحالية (إن وجدت)</label>
+                            <textarea id="book-specs" rows="3"
+                                placeholder="مثال: RTX 3060, i5 12th, 16GB RAM..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-green w-100">
+                            <i class="fa-solid fa-paper-plane"></i> إرسال طلب الصيانة
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 5. STEAM GAMES SECTION -->
+        <section id="steam-section" class="tab-content">
+            <div class="section-header">
+                <h2>مكتبة ألعاب <span class="neon-gradient-text">Steam الرقمية</span></h2>
+                <p>امتلك أحدث الألعاب مع التفعيل الفوري وضمان مدى الحياة على حسابك</p>
+            </div>
+
+            <!-- Steam Mega Bundle Promo Card -->
+            <div class="steam-mega-promo glass-panel">
+                <div class="promo-content">
+                    <span class="promo-badge"><i class="fa-solid fa-crown text-purple"></i> البكج الأضخم والأقوى</span>
+                    <h2>البكج الأضخم لألعاب Steam (جميع الألعاب - أوفلاين)</h2>
+                    <p>احصل على وصول فوري وكامل لجميع ألعاب Steam المشهورة والمطلوبة (بما فيها أحدث الإصدارات) للعب أوفلاين (Offline) مع ضمان مدى الحياة.</p>
+                    <ul class="promo-specs-list">
+                        <li><i class="fa-solid fa-circle-check text-cyan"></i> يضم جميع ألعاب الشوتر، المغامرات، والـ RPG والسيارات</li>
+                        <li><i class="fa-solid fa-circle-check text-cyan"></i> نمط لعب أوفلاين كامل (Offline Mode) مستقر وبدون أي تعارض</li>
+                        <li><i class="fa-solid fa-circle-check text-cyan"></i> تحديثات مستمرة وإضافة أحدث ألعاب السنة فور صدورها</li>
+                        <li><i class="fa-solid fa-circle-check text-cyan"></i> تفعيل فوري ودعم متكامل خطوة بخطوة</li>
+                    </ul>
+                </div>
+                <div class="promo-action">
+                    <div class="promo-price-box">
+                        <span class="original-price">499 ر.س</span>
+                        <span class="discount-price">49 ر.س فقط!</span>
+                    </div>
+                    <button class="btn btn-purple btn-glow-purple"
+                        onclick="addToCart('steam-mega-bundle', 'البكج الأضخم لألعاب Steam (جميع الألعاب - أوفلاين)', 49, 'game-bundle')">
+                        <i class="fa-solid fa-shopping-bag"></i> شراء البكج الأضخم الآن
+                    </button>
+                </div>
+            </div>
+
+
+
+            <!-- Games Filter Controls -->
+            <div class="games-filter-bar glass-panel">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="game-search" placeholder="ابحث عن لعبة معينة...">
+                </div>
+                <div class="filter-tags" id="game-genre-tags">
+                    <button class="filter-tag active" data-genre="all">الكل</button>
+                    <button class="filter-tag" data-genre="action">أكشن ومغامرات</button>
+                    <button class="filter-tag" data-genre="shooter">شوتر وتصويب</button>
+                    <button class="filter-tag" data-genre="rpg">ألعاب الأدوار RPG</button>
+                    <button class="filter-tag" data-genre="sports">سباقات ورياضة</button>
+                </div>
+            </div>
+
+            <!-- Games Grid -->
+            <div class="steam-games-grid" id="steam-games-grid">
+                <!-- Dynamic injection via app.js -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Side Cart Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3><i class="fa-solid fa-shopping-bag text-cyan"></i> سلة التسوق</h3>
+            <button class="close-cart-btn" id="cart-close-btn">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Dynamic Cart Items -->
+            <div class="empty-cart-msg">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>سلتك فارغة حالياً. تصفح الموقع وأضف ما ترغب به!</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>الإجمالي:</span>
+                <span class="cart-total-price" id="cart-total-value">0.00 ر.س</span>
+            </div>
+            <button class="btn btn-primary w-100" id="checkout-start-btn" disabled>
+                <i class="fa-solid fa-credit-card"></i> الانتقال لإتمام الدفع
+            </button>
+        </div>
+    </div>
+    <div class="drawer-overlay" id="cart-overlay"></div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkout-modal">
+        <div class="checkout-modal-content glass-panel">
+            <button class="close-modal-btn" id="checkout-close-btn">&times;</button>
+            <div class="checkout-steps">
+                <div class="step active-step" id="step-tab-1">1. معلومات التواصل</div>
+                <div class="step" id="step-tab-2">2. الدفع والتأكيد</div>
+            </div>
+
+            <!-- Step 1 Content -->
+            <div class="step-content active-content" id="step-content-1">
+                <form id="checkout-form-step1">
+                    <div class="form-group">
+                        <label for="cust-name">الاسم بالكامل</label>
+                        <input type="text" id="cust-name" required placeholder="أدخل اسمك الثلاثي">
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-phone">رقم الجوال (مع كود الدولة)</label>
+                        <input type="tel" id="cust-phone" required placeholder="+966 5xxxxxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-email">البريد الإلكتروني</label>
+                        <input type="email" id="cust-email" required placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-notes">ملاحظات إضافية (أو حساب الديسكورد/ستيم الخاص بك)</label>
+                        <textarea id="cust-notes" rows="2" placeholder="اختياري..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">المتابعة لطرق الدفع <i
+                            class="fa-solid fa-arrow-left"></i></button>
+                </form>
+            </div>
+
+            <!-- Step 2 Content -->
+            <div class="step-content" id="step-content-2">
+                <h4>اختر وسيلة الدفع المفضلة لديك:</h4>
+                <div class="payment-methods">
+                    <div class="pay-option selected" data-method="applepay">
+                        <i class="fa-brands fa-apple-pay"></i> Apple Pay
+                    </div>
+                    <div class="pay-option" data-method="mada">
+                        <i class="fa-solid fa-credit-card text-cyan"></i> مدى
+                    </div>
+                    <div class="pay-option" data-method="stcpay">
+                        <i class="fa-solid fa-wallet text-green"></i> STC Pay
+                    </div>
+                    <div class="pay-option" data-method="credit">
+                        <i class="fa-solid fa-credit-card text-purple"></i> بطاقة ائتمانية
+                    </div>
+                </div>
+
+                <!-- Apple Pay Detail Mockup -->
+                <div class="payment-fields-mock" id="pay-fields-applepay" style="display: block;">
+                    <button type="button" class="apple-pay-mock-btn" id="apple-pay-trigger-btn">
+                        <i class="fa-brands fa-apple-pay"></i> ادفع باستخدام Apple Pay
+                    </button>
+                </div>
+
+                <!-- STC Pay Detail Mockup -->
+                <div class="payment-fields-mock" id="pay-fields-stcpay" style="display: none;">
+                    <div class="form-group">
+                        <label>رقم جوال STC Pay</label>
+                        <input type="tel" placeholder="05xxxxxxxx">
+                    </div>
+                </div>
+
+                <!-- Credit Card Detail Mockup -->
+                <div class="payment-fields-mock" id="pay-fields-credit" style="display: none;">
+                    <div class="form-group">
+                        <label>رقم البطاقة</label>
+                        <input type="text" placeholder="**** **** **** ****">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>تاريخ الانتهاء</label>
+                            <input type="text" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label>الرمز السري CVV</label>
+                            <input type="password" placeholder="***">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-summary glass-panel">
+                    <div class="summary-row">
+                        <span>قيمة المنتجات:</span>
+                        <span id="summary-subtotal">0.00 ر.س</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>ضريبة القيمة المضافة (0%):</span>
+                        <span>0.00 ر.س</span>
+                    </div>
+                    <hr>
+                    <div class="summary-row total-row">
+                        <span>المبلغ الإجمالي النهائي:</span>
+                        <span id="summary-total" class="text-cyan">0.00 ر.س</span>
+                    </div>
+                </div>
+
+                <div class="modal-buttons-row">
+                    <button class="btn btn-secondary" id="checkout-back-btn"><i class="fa-solid fa-arrow-right"></i>
+                        رجوع</button>
+                    <button class="btn btn-primary" id="checkout-submit-btn">إتمام عملية الشراء <i
+                            class="fa-solid fa-circle-check"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="checkout-overlay" id="checkout-overlay"></div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="success-modal">
+        <div class="success-modal-content glass-panel">
+            <div class="success-checkmark-wrapper">
+                <div class="success-checkmark"></div>
+            </div>
+            <h2>تم استلام طلبك بنجاح!</h2>
+            <p>سعداء بخدمتك. لقد تم إصدار الفاتورة وتجهيز الكود الخاص بك.</p>
+            <div class="receipt-box" id="receipt-details">
+                <!-- Dynamic receipt content -->
+            </div>
+            <p class="whatsapp-prompt"><i class="fa-brands fa-whatsapp text-green"></i> يرجى إرسال رقم الطلب للواتساب
+                لتسريع التفعيل الفوري والحصول على الدعم.</p>
+            <div class="success-actions">
+                <a href="#" class="btn btn-green" id="whatsapp-confirm-btn" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> تواصل فوري عبر واتساب
+                </a>
+                <button class="btn btn-secondary" id="success-close-btn">العودة للرئيسية</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Success Modal -->
+    <div class="success-modal" id="booking-success-modal">
+        <div class="success-modal-content glass-panel">
+            <div class="success-checkmark-wrapper">
+                <div class="success-checkmark"></div>
+            </div>
+            <h2>تم تسجيل طلب الصيانة!</h2>
+            <p>لقد استلمنا تفاصيل عطل جهازك بنجاح وسيتم الاتصال بك خلال ساعات لجدولة موعد الصيانة.</p>
+            <div class="receipt-box" id="booking-details">
+                <!-- Dynamic Booking Info -->
+            </div>
+            <div class="success-actions">
+                <a href="#" class="btn btn-green" id="whatsapp-booking-confirm-btn" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> إرسال عبر واتساب للتفعيل الفوري
+                </a>
+                <button class="btn btn-secondary" id="booking-success-close-btn">حسناً</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <div class="section-header">
+            <h2>الأسئلة الشائعة <span class="neon-gradient-text">FAQ</span></h2>
+            <p>كل ما تود معرفته عن باقات التويك، الاشتراكات والضمان</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item glass-panel">
+                <button class="faq-question">
+                    <span>هل التويك الخاص بكم يسبب الباند في ألعاب مثل Valorant أو Fortnite؟</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>لا كلياً. التويك يعتمد على تعديل إعدادات الويندوز، الريجستري، تعريفات كارت الشاشة والتحكم الإداري
+                        بالخدمات. نحن لا نعدل على ملفات الألعاب نفسها ولا نستخدم أي برامج تتدخل في ذاكرة اللعبة، مما
+                        يجعله آمناً 100% ومطابقاً لقوانين مكافحة الغش.</p>
+                </div>
+            </div>
+            <div class="faq-item glass-panel">
+                <button class="faq-question">
+                    <span>كيف يتم تفعيل اشتراك الـ IPTV بعد الدفع؟</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>بمجرد إتمام الدفع بنجاح، سيقوم النظام بتوليد كود التفعيل والروابط (M3U / Xtream). سيصلك الكود
+                        فورياً، ويمكنك التواصل معنا عبر الواتساب لتزويدك بتطبيقات التشغيل المناسبة لشاشتك أو هاتفك
+                        ومساعدتك خطوة بخطوة في التفعيل الفوري.</p>
+                </div>
+            </div>
+            <div class="faq-item glass-panel">
+                <button class="faq-question">
+                    <span>هل يمكنني استرجاع أموالي إذا لم يعجبني التويك؟</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>نعم، رضاكم هو أولويتنا. إذا قمنا بعمل التويك ولم تشعر بفرق حقيقي في سلاسة واستجابة جهازك خلال 3
+                        أيام من الخدمة، يمكنك طلب استرجاع كامل المبلغ وسيقوم الدعم الفني بإلغاء التعديلات وإرجاع نظامك
+                        لحالته السابقة.</p>
+                </div>
+            </div>
+            <div class="faq-item glass-panel">
+                <button class="faq-question">
+                    <span>كيف تعمل ميزة تفعيل ألعاب Steam لديكم؟</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>نوفر الألعاب عن طريق إرسالها كهدية (Steam Gift) أو كود تفعيل أصلي (Global Key) أو تفعيل حساب كامل
+                        يحتوي على اللعبة بشكل رسمي دائم مع إمكانية اللعب أونلاين ومشاركة المكتبة مع حسابك الشخصي (Family
+                        Sharing).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 متجر K1 Tech. جميع الحقوق محفوظة. تم التطوير بأداء Google Antigravity فائق السرعة.</p>
+        </div>
+    </footer>
+
+    <!-- Apple Pay Simulation Sheet -->
+    <div class="apple-pay-sheet" id="apple-pay-simulation-sheet">
+        <div class="apple-pay-sheet-content">
+            <div class="apple-pay-sheet-header">
+                <i class="fa-brands fa-apple-pay"></i>
+                <span>Apple Pay</span>
+            </div>
+            <div class="apple-pay-sheet-body">
+                <div class="apple-pay-merchant">
+                    <span>التاجر:</span>
+                    <strong>متجر K1 Tech</strong>
+                </div>
+                <div class="apple-pay-amount">
+                    <span>المبلغ الكلي:</span>
+                    <strong id="apple-pay-sheet-total">0.00 ر.س</strong>
+                </div>
+                <div class="apple-pay-verification-zone">
+                    <div class="face-id-scanner" id="face-id-scanner">
+                        <i class="fa-solid fa-fingerprint scanner-icon"></i>
+                        <div class="scanner-line"></div>
+                    </div>
+                    <p class="verification-text" id="apple-pay-verification-text">انقر للدفع ومحاكاة التحقق الذكي...</p>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary w-100" id="apple-pay-sheet-cancel">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/966500000000" class="whatsapp-float-btn" id="whatsapp-floating-btn" target="_blank" aria-label="تواصل معنا عبر واتساب">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="tooltip-text">تواصل معنا</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+
+</html>
