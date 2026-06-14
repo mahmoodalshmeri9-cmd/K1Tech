@@ -38,6 +38,32 @@
     --transition-fast: all 0.2s ease;
 }
 
+/* Light Mode Overrides */
+body.light-mode {
+    --bg-dark: #f8fafc;
+    --bg-dark-rgb: 248, 250, 252;
+    --bg-panel: rgba(255, 255, 255, 0.85);
+    --bg-panel-hover: rgba(255, 255, 255, 1);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --border-hover: rgba(0, 0, 0, 0.2);
+    
+    --primary-cyan: #008ecc;
+    --primary-cyan-rgb: 0, 142, 204;
+    --primary-purple: #7b2cbf;
+    --primary-purple-rgb: 123, 44, 191;
+    --primary-green: #00b359;
+    --primary-green-rgb: 0, 179, 89;
+    --primary-red: #e60000;
+    
+    --text-white: #0f172a;
+    --text-gray: #334155;
+    --text-muted: #64748b;
+    
+    --grad-cyan-purple: linear-gradient(135deg, var(--primary-cyan) 0%, var(--primary-purple) 100%);
+    --grad-purple-glow: linear-gradient(135deg, #5a189a 0%, #7b2cbf 100%);
+    --grad-dark-overlay: linear-gradient(180deg, rgba(248, 250, 252, 0.8) 0%, rgba(248, 250, 252, 0.95) 100%);
+}
+
 /* Global Reset */
 * {
     margin: 0;
@@ -266,7 +292,7 @@ body {
     gap: 15px;
 }
 
-.cart-btn {
+.cart-btn, .theme-toggle-btn, .lang-toggle-btn {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-color);
     color: var(--text-white);
@@ -278,9 +304,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 700;
 }
 
-.cart-btn:hover {
+.cart-btn:hover, .theme-toggle-btn:hover, .lang-toggle-btn:hover {
     background: rgba(0, 242, 254, 0.1);
     border-color: var(--primary-cyan);
     color: var(--primary-cyan);

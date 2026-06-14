@@ -32,16 +32,20 @@
             </a>
 
             <nav class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link active" data-tab="home"><i class="fa-solid fa-house"></i> الرئيسية</a>
-                <a href="#tweaks" class="nav-link" data-tab="tweaks"><i class="fa-solid fa-gauge-high"></i> التويك
-                    والتحسين</a>
-                <a href="#iptv" class="nav-link" data-tab="iptv"><i class="fa-solid fa-tv"></i> اشتراكات IPTV</a>
-                <a href="#repair" class="nav-link" data-tab="repair"><i class="fa-solid fa-screwdriver-wrench"></i>
-                    صيانة PC</a>
-                <a href="#steam" class="nav-link" data-tab="steam"><i class="fa-solid fa-gamepad"></i> ألعاب Steam</a>
+                <a href="#home" class="nav-link active" data-tab="home" data-i18n="nav_home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+                <a href="#tweaks" class="nav-link" data-tab="tweaks" data-i18n="nav_tweaks"><i class="fa-solid fa-gauge-high"></i> التويك والتحسين</a>
+                <a href="#iptv" class="nav-link" data-tab="iptv" data-i18n="nav_iptv"><i class="fa-solid fa-tv"></i> اشتراكات IPTV</a>
+                <a href="#repair" class="nav-link" data-tab="repair" data-i18n="nav_repair"><i class="fa-solid fa-screwdriver-wrench"></i> الصيانة والتجميعات</a>
+                <a href="#steam" class="nav-link" data-tab="steam" data-i18n="nav_steam"><i class="fa-solid fa-gamepad"></i> ألعاب Steam</a>
             </nav>
 
             <div class="header-actions">
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="تغيير المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="lang-toggle-btn" id="lang-toggle" aria-label="تغيير اللغة">
+                    EN
+                </button>
                 <button class="cart-btn" id="cart-toggle-btn" aria-label="سلة المشتريات">
                     <i class="fa-solid fa-shopping-bag"></i>
                     <span class="cart-badge" id="cart-badge-count">0</span>
@@ -60,19 +64,17 @@
         <section id="home-section" class="tab-content active-tab">
             <div class="hero-section">
                 <div class="hero-text">
-                    <div class="status-pill">
+                    <div class="status-pill" data-i18n="hero_status">
                         <span class="status-dot"></span>
                         أنظمة وسيرفرات K1 Tech تعمل بكامل كفاءتها
                     </div>
-                    <h1 class="hero-title">ارتقِ بأداء جهازك وعالمك الترفيهي إلى <span
-                            class="neon-gradient-text">المستوى الأقصى</span></h1>
-                    <p class="hero-subtitle">تعديلات لزيادة فريمات الألعاب، اشتراكات IPTV عالية الجودة بدون تقطيع، صيانة
-                        احترافية للـ PC، وأكبر مكتبة لتفعيل ألعاب Steam في مكان واحد.</p>
+                    <h1 class="hero-title" data-i18n="hero_title">ارتقِ بأداء جهازك وعالمك الترفيهي إلى <span class="neon-gradient-text">المستوى الأقصى</span></h1>
+                    <p class="hero-subtitle" data-i18n="hero_subtitle">تعديلات لزيادة فريمات الألعاب، اشتراكات IPTV عالية الجودة بدون تقطيع، صيانة احترافية للـ PC، وأكبر مكتبة لتفعيل ألعاب Steam في مكان واحد.</p>
                     <div class="hero-buttons">
-                        <button class="btn btn-primary" onclick="switchTab('tweaks')">
+                        <button class="btn btn-primary" onclick="switchTab('tweaks')" data-i18n="btn_explore_tweaks">
                             <i class="fa-solid fa-rocket"></i> استكشف خدمات التويك
                         </button>
-                        <button class="btn btn-secondary" onclick="switchTab('repair')">
+                        <button class="btn btn-secondary" onclick="switchTab('repair')" data-i18n="btn_diagnose">
                             <i class="fa-solid fa-laptop-medical"></i> تشخيص مشاكل جهازك
                         </button>
                     </div>
@@ -136,11 +138,10 @@
 
         <!-- 2. TWEAKS SHOP SECTION -->
         <section id="tweaks-section" class="tab-content">
-            <div class="section-header">
-                <h2>باقات <span class="neon-gradient-text">تحسين الـ PC والألعاب</span></h2>
-                <p>تخلص من الـ Input Lag وضاعف الفريمات بلمسة احترافية آمنة تماماً</p>
+            <div class="section-header text-center">
+                <h2 class="section-title" data-i18n="section_tweaks_title">خدمات التويك والـ PC Optimization</h2>
+                <p class="section-subtitle" data-i18n="section_tweaks_subtitle">حوّل جهازك إلى وحش كاسر في الألعاب. أعلى فريمات ممكنة وأقل تأخير (Input Lag).</p>
             </div>
-
             <div class="tweaks-container">
                 <!-- Tweaks Cards Grid -->
                 <div class="products-grid" id="tweaks-grid">
@@ -183,9 +184,9 @@
 
         <!-- 3. IPTV SECTION -->
         <section id="iptv-section" class="tab-content">
-            <div class="section-header">
-                <h2>اشتراكات <span class="neon-gradient-text">IPTV المميزة</span></h2>
-                <p>تابع مبارياتك المفضلة وأحدث الأفلام والمسلسلات بدقة 4K بدون تقطيع</p>
+            <div class="section-header text-center">
+                <h2 class="section-title" data-i18n="section_iptv_title">اشتراكات IPTV</h2>
+                <p class="section-subtitle" data-i18n="section_iptv_subtitle">تابع جميع قنوات العالم، المباريات المباشرة، وأحدث الأفلام والمسلسلات بجودة 4K.</p>
             </div>
 
             <!-- IPTV Channel Search Simulator -->
@@ -231,9 +232,9 @@
 
         <!-- 4. PC REPAIR SECTION -->
         <section id="repair-section" class="tab-content">
-            <div class="section-header">
-                <h2>مساعد <span class="neon-gradient-text">تشخيص وصيانة الـ PC</span></h2>
-                <p>هل تعاني من بطء جهازك أو ارتفاع الحرارة؟ شخص مشكلتك واحجز موعداً لصيانتها فوراً</p>
+            <div class="section-header text-center">
+                <h2 class="section-title" data-i18n="section_repair_title">مشخّص الأعطال الذكي والصيانة</h2>
+                <p class="section-subtitle" data-i18n="section_repair_subtitle">حدد مشكلة جهازك من القائمة وسيقوم المشخص الذكي بتحليلها وتقديم الحل وتكلفة الصيانة.</p>
             </div>
 
             <div class="repair-container">
@@ -306,9 +307,9 @@
 
         <!-- 5. STEAM GAMES SECTION -->
         <section id="steam-section" class="tab-content">
-            <div class="section-header">
-                <h2>مكتبة ألعاب <span class="neon-gradient-text">Steam الرقمية</span></h2>
-                <p>امتلك أحدث الألعاب مع التفعيل الفوري وضمان مدى الحياة على حسابك</p>
+            <div class="section-header text-center">
+                <h2 class="section-title" data-i18n="section_steam_title">مكتبة ألعاب Steam</h2>
+                <p class="section-subtitle" data-i18n="section_steam_subtitle">أضف أشهر ألعاب التختيم والقصص إلى سلتك واحصل عليها فوراً.</p>
             </div>
 
             <!-- Steam Mega Bundle Promo Card -->
@@ -539,64 +540,57 @@
         </div>
     </div>
 
-    <!-- FAQ SECTION -->
-    <section class="faq-section">
-        <div class="section-header">
-            <h2>الأسئلة الشائعة <span class="neon-gradient-text">FAQ</span></h2>
-            <p>كل ما تود معرفته عن باقات التويك، الاشتراكات والضمان</p>
-        </div>
-        <div class="faq-container">
-            <div class="faq-item glass-panel">
-                <button class="faq-question">
-                    <span>هل التويك الخاص بكم يسبب الباند في ألعاب مثل Valorant أو Fortnite؟</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    <p>لا كلياً. التويك يعتمد على تعديل إعدادات الويندوز، الريجستري، تعريفات كارت الشاشة والتحكم الإداري
-                        بالخدمات. نحن لا نعدل على ملفات الألعاب نفسها ولا نستخدم أي برامج تتدخل في ذاكرة اللعبة، مما
-                        يجعله آمناً 100% ومطابقاً لقوانين مكافحة الغش.</p>
+        <!-- 6. FAQ SECTION -->
+        <section id="faq-section" class="tab-content">
+            <div class="section-header text-center">
+                <h2 class="section-title" data-i18n="faq_title">الأسئلة الشائعة</h2>
+                <p class="section-subtitle" data-i18n="faq_subtitle">كل ما تود معرفته عن خدماتنا واشتراكاتنا متوفر هنا.</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq_q1">هل خدمة التويك دائم أم تروح بعد فترة؟</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq_a1">التويك الخاص بنا احترافي ويعدل على جذور النظام ليكون دائماً. لكن بعض التحديثات الكبيرة للويندوز قد تعيد بعض الإعدادات، لذلك نوفر لك طريقة لاستعادة التويك بسهولة.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq_q2">هل فيه ضمان على اشتراك الـ IPTV؟</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq_a2">نعم بكل تأكيد! الضمان يشمل كامل مدة الاشتراك وثبات البث وقت المباريات، بالإضافة لدعم فني متواجد طوال الوقت.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq_q3">كيف يتم تسليم ألعاب Steam؟</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq_a3">بعد إتمام الطلب، سيتم التواصل معك عبر الواتساب لتسليمك اللعبة في حسابك بشكل آمن ومضمون 100%.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq_q4">هل توفرون صيانة للـ PC خارج المعرض؟</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq_a4">نوفر خدمة الصيانة البرمجية عن بعد أينما كنت. أما صيانة الهاردوير والتجميعات فتتم في مقرنا أو عبر خدمات التوصيل المعتمدة.</p>
+                    </div>
                 </div>
             </div>
-            <div class="faq-item glass-panel">
-                <button class="faq-question">
-                    <span>كيف يتم تفعيل اشتراك الـ IPTV بعد الدفع؟</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    <p>بمجرد إتمام الدفع بنجاح، سيقوم النظام بتوليد كود التفعيل والروابط (M3U / Xtream). سيصلك الكود
-                        فورياً، ويمكنك التواصل معنا عبر الواتساب لتزويدك بتطبيقات التشغيل المناسبة لشاشتك أو هاتفك
-                        ومساعدتك خطوة بخطوة في التفعيل الفوري.</p>
-                </div>
-            </div>
-            <div class="faq-item glass-panel">
-                <button class="faq-question">
-                    <span>هل يمكنني استرجاع أموالي إذا لم يعجبني التويك؟</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    <p>نعم، رضاكم هو أولويتنا. إذا قمنا بعمل التويك ولم تشعر بفرق حقيقي في سلاسة واستجابة جهازك خلال 3
-                        أيام من الخدمة، يمكنك طلب استرجاع كامل المبلغ وسيقوم الدعم الفني بإلغاء التعديلات وإرجاع نظامك
-                        لحالته السابقة.</p>
-                </div>
-            </div>
-            <div class="faq-item glass-panel">
-                <button class="faq-question">
-                    <span>كيف تعمل ميزة تفعيل ألعاب Steam لديكم؟</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    <p>نوفر الألعاب عن طريق إرسالها كهدية (Steam Gift) أو كود تفعيل أصلي (Global Key) أو تفعيل حساب كامل
-                        يحتوي على اللعبة بشكل رسمي دائم مع إمكانية اللعب أونلاين ومشاركة المكتبة مع حسابك الشخصي (Family
-                        Sharing).</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
     <!-- Footer -->
     <footer class="main-footer">
-        <div class="footer-bottom">
-            <p>&copy; 2026 متجر K1 Tech. جميع الحقوق محفوظة. تم التطوير بأداء Google Antigravity فائق السرعة.</p>
+        <div class="footer-bottom text-center">
+            <p data-i18n="footer_rights">© 2026 K1 Tech. جميع الحقوق محفوظة.</p>
         </div>
     </footer>
 
@@ -635,6 +629,7 @@
     </a>
 
     <!-- Scripts -->
+    <script src="lang.js"></script>
     <script src="app.js"></script>
 </body>
 

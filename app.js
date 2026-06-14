@@ -78,67 +78,22 @@ const IPTV_DATA = [
 
 const STEAM_GAMES_DATA = [
     {
-        id: 'game-cod',
-        name: 'Call of Duty: Black Ops 6',
-        genre: 'shooter',
-        origPrice: 299,
-        price: 199,
-        rating: 4.8,
-        icon: 'fa-crosshairs'
-    },
-    {
-        id: 'game-gta',
-        name: 'Grand Theft Auto V: Premium Edition',
-        genre: 'action',
-        origPrice: 120,
-        price: 45,
-        rating: 4.9,
-        icon: 'fa-car'
-    },
-    {
-        id: 'game-fifa',
-        name: 'EA SPORTS FC 26',
-        genre: 'sports',
-        origPrice: 279,
-        price: 149,
-        rating: 4.5,
-        icon: 'fa-circle-play'
-    },
-    {
-        id: 'game-rust',
-        name: 'Rust',
-        genre: 'action',
+        id: 'game-witcher3',
+        name: 'The Witcher 3: Wild Hunt',
+        genre: 'rpg',
         origPrice: 150,
-        price: 75,
-        rating: 4.7,
-        icon: 'fa-shield-halved'
-    },
-    {
-        id: 'game-cs2',
-        name: 'Counter-Strike 2 Prime Status',
-        genre: 'shooter',
-        origPrice: 60,
-        price: 39,
-        rating: 4.6,
-        icon: 'fa-bullseye'
-    },
-    {
-        id: 'game-cyberpunk',
-        name: 'Cyberpunk 2077',
-        genre: 'rpg',
-        origPrice: 230,
-        price: 99,
-        rating: 4.8,
-        icon: 'fa-brain'
-    },
-    {
-        id: 'game-elden',
-        name: 'Elden Ring',
-        genre: 'rpg',
-        origPrice: 240,
-        price: 129,
+        price: 49,
         rating: 4.9,
         icon: 'fa-dragon'
+    },
+    {
+        id: 'game-gow',
+        name: 'God of War',
+        genre: 'action',
+        origPrice: 200,
+        price: 89,
+        rating: 4.9,
+        icon: 'fa-gavel'
     },
     {
         id: 'game-rdr2',
@@ -148,6 +103,51 @@ const STEAM_GAMES_DATA = [
         price: 89,
         rating: 4.9,
         icon: 'fa-horse'
+    },
+    {
+        id: 'game-spider',
+        name: "Marvel's Spider-Man Remastered",
+        genre: 'action',
+        origPrice: 240,
+        price: 119,
+        rating: 4.8,
+        icon: 'fa-spider'
+    },
+    {
+        id: 'game-re4',
+        name: 'Resident Evil 4 Remake',
+        genre: 'action',
+        origPrice: 250,
+        price: 149,
+        rating: 4.9,
+        icon: 'fa-biohazard'
+    },
+    {
+        id: 'game-tlou',
+        name: 'The Last of Us Part I',
+        genre: 'action',
+        origPrice: 250,
+        price: 149,
+        rating: 4.8,
+        icon: 'fa-person-walking'
+    },
+    {
+        id: 'game-hogwarts',
+        name: 'Hogwarts Legacy',
+        genre: 'rpg',
+        origPrice: 250,
+        price: 139,
+        rating: 4.7,
+        icon: 'fa-hat-wizard'
+    },
+    {
+        id: 'game-horizon',
+        name: 'Horizon Zero Dawn',
+        genre: 'action',
+        origPrice: 180,
+        price: 69,
+        rating: 4.8,
+        icon: 'fa-location-arrow'
     }
 ];
 
@@ -801,8 +801,43 @@ document.querySelectorAll('.faq-question').forEach(button => {
     });
 });
 
+// --- 10. THEME & LANGUAGE TOGGLE ---
+const themeToggleBtn = document.getElementById('theme-toggle');
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        const isLight = document.body.classList.contains('light-mode');
+        themeToggleBtn.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    });
+}
 
-// --- 10. INITIALIZATION ---
+const langToggleBtn = document.getElementById('lang-toggle');
+if (langToggleBtn) {
+    langToggleBtn.addEventListener('click', () => {
+        const isEn = document.documentElement.lang === 'en';
+        if (isEn) {
+            document.documentElement.lang = 'ar';
+            document.documentElement.dir = 'rtl';
+            langToggleBtn.textContent = 'EN';
+            document.querySelector('.nav-link[data-tab="home"]').innerHTML = '<i class="fa-solid fa-house"></i> الرئيسية';
+            document.querySelector('.nav-link[data-tab="tweaks"]').innerHTML = '<i class="fa-solid fa-gauge-high"></i> التويك والتحسين';
+            document.querySelector('.nav-link[data-tab="iptv"]').innerHTML = '<i class="fa-solid fa-tv"></i> اشتراكات IPTV';
+            document.querySelector('.nav-link[data-tab="repair"]').innerHTML = '<i class="fa-solid fa-screwdriver-wrench"></i> الصيانة والتجميعات';
+            document.querySelector('.nav-link[data-tab="steam"]').innerHTML = '<i class="fa-solid fa-gamepad"></i> ألعاب Steam';
+        } else {
+            document.documentElement.lang = 'en';
+            document.documentElement.dir = 'ltr';
+            langToggleBtn.textContent = 'AR';
+            document.querySelector('.nav-link[data-tab="home"]').innerHTML = '<i class="fa-solid fa-house"></i> Home';
+            document.querySelector('.nav-link[data-tab="tweaks"]').innerHTML = '<i class="fa-solid fa-gauge-high"></i> Tweaks & Boost';
+            document.querySelector('.nav-link[data-tab="iptv"]').innerHTML = '<i class="fa-solid fa-tv"></i> IPTV Subscriptions';
+            document.querySelector('.nav-link[data-tab="repair"]').innerHTML = '<i class="fa-solid fa-screwdriver-wrench"></i> PC Repair & Builds';
+            document.querySelector('.nav-link[data-tab="steam"]').innerHTML = '<i class="fa-solid fa-gamepad"></i> Steam Games';
+        }
+    });
+}
+
+// --- 11. INITIALIZATION ---
 window.addEventListener('DOMContentLoaded', () => {
     loadTweaks();
     loadIptv();
