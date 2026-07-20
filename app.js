@@ -1,12 +1,13 @@
 /**
  * K1 Tech - Main Client Application Script
  * Implements interactive routing, cart operations, checkout modal steps, 
- * PC diagnostics assistant, Steam games search/filter, and WhatsApp confirmation generators.
+ * PC diagnostics assistant, and WhatsApp confirmation generators.
+ * Fully supports complete translation to English/Arabic.
  */
 
 // --- DATA DEFINITIONS ---
 
-const WHATSAPP_NUMBER = '966504954741'; // غير الرقم هنا إلى رقمك الحقيقي (بدون + أو أصفار في البداية، مثال: 9665XXXXXXXX)
+const WHATSAPP_NUMBER = '966504954741'; // K1 Tech Support Number
 
 const TWEAKS_DATA = [
     {
@@ -38,7 +39,7 @@ const IPTV_DATA = [
             'أكثر من 12,000 قناة بجودة HD / FHD',
             'مكتبة ضخمة من الأفلام والمسلسلات العربية والأجنبية',
             'تحديثات يومية مجانية للمحتوى',
-            'يدعم التشغيل على جهاز واحد في نفس الوقت',
+            'ضمان كامل طوال مدة الاشتراك',
             'يعمل على الشاشات الذكية، الأندرويد، والآيفون',
             'ثبات عالي أثناء المباريات الهامة'
         ]
@@ -52,10 +53,10 @@ const IPTV_DATA = [
         features: [
             'أكثر من 12,000 قناة بدقة تصل إلى 4K UHD',
             'مكتبة أفلام ومسلسلات ضخمة (نتفليكس، شاهد، OSN)',
-            'يدعم التشغيل على جهازين في نفس الوقت',
+            'ضمان كامل طوال مدة الاشتراك',
             'سيرفرات احتياطية فائقة السرعة لمنع التقطيع وقت المباريات',
             'تفعيل سريع ودعم فني متاح خلال اليوم',
-            'ضمان كامل طوال مدة الاشتراك'
+            'دعم وتحديثات مستمرة'
         ]
     },
     {
@@ -69,85 +70,10 @@ const IPTV_DATA = [
             'أكثر من 12,000 قناة بجودة 4K حقيقية بدون أي ضغط',
             'الوصول الحصري لأقوى سيرفرات البث الرياضي التابعة لـ K1 Tech',
             'مكتبة أفلام ومسلسلات عملاقة متحدثة فورياً (جميع المنصات)',
-            'يدعم التشغيل على 3 أجهزة بنفس الوقت',
+            'ضمان كامل طوال مدة الاشتراك',
             'دعم فني VIP فوري عبر الواتساب والديسكورد على مدار الساعة',
             'توفير تطبيق تشغيل مجاني خاص بمتجرنا'
         ]
-    }
-];
-
-const STEAM_GAMES_DATA = [
-    {
-        id: 'game-witcher3',
-        name: 'The Witcher 3: Wild Hunt',
-        genre: 'rpg',
-        origPrice: 150,
-        price: 49,
-        rating: 4.9,
-        icon: 'fa-dragon'
-    },
-    {
-        id: 'game-gow',
-        name: 'God of War',
-        genre: 'action',
-        origPrice: 200,
-        price: 89,
-        rating: 4.9,
-        icon: 'fa-gavel'
-    },
-    {
-        id: 'game-rdr2',
-        name: 'Red Dead Redemption 2',
-        genre: 'action',
-        origPrice: 220,
-        price: 89,
-        rating: 4.9,
-        icon: 'fa-horse'
-    },
-    {
-        id: 'game-spider',
-        name: "Marvel's Spider-Man Remastered",
-        genre: 'action',
-        origPrice: 240,
-        price: 119,
-        rating: 4.8,
-        icon: 'fa-spider'
-    },
-    {
-        id: 'game-re4',
-        name: 'Resident Evil 4 Remake',
-        genre: 'action',
-        origPrice: 250,
-        price: 149,
-        rating: 4.9,
-        icon: 'fa-biohazard'
-    },
-    {
-        id: 'game-tlou',
-        name: 'The Last of Us Part I',
-        genre: 'action',
-        origPrice: 250,
-        price: 149,
-        rating: 4.8,
-        icon: 'fa-person-walking'
-    },
-    {
-        id: 'game-hogwarts',
-        name: 'Hogwarts Legacy',
-        genre: 'rpg',
-        origPrice: 250,
-        price: 139,
-        rating: 4.7,
-        icon: 'fa-hat-wizard'
-    },
-    {
-        id: 'game-horizon',
-        name: 'Horizon Zero Dawn',
-        genre: 'action',
-        origPrice: 180,
-        price: 69,
-        rating: 4.8,
-        icon: 'fa-location-arrow'
     }
 ];
 
@@ -161,12 +87,11 @@ const POPULAR_CHANNELS = [
 // --- APP STATE ---
 let cart = [];
 let currentSymptom = null;
-let selectedPaymentMethod = 'applepay';
+let selectedPaymentMethod = 'whatsapp';
 
 // --- DOM ELEMENTS ---
 const tweaksGrid = document.getElementById('tweaks-grid');
 const iptvGrid = document.getElementById('iptv-packages-grid');
-const steamGamesGrid = document.getElementById('steam-games-grid');
 const cartToggleBtn = document.getElementById('cart-toggle-btn');
 const cartCloseBtn = document.getElementById('cart-close-btn');
 const cartDrawer = document.getElementById('cart-drawer');
@@ -193,6 +118,7 @@ const summaryTotal = document.getElementById('summary-total');
 
 const payFieldsStcPay = document.getElementById('pay-fields-stcpay');
 const payFieldsCredit = document.getElementById('pay-fields-credit');
+const payFieldsWhatsapp = document.getElementById('pay-fields-whatsapp');
 
 const successModal = document.getElementById('success-modal');
 const successCloseBtn = document.getElementById('success-close-btn');
@@ -228,7 +154,7 @@ function switchTab(tabId) {
 
     // Close mobile menu if open
     const navMenu = document.getElementById('nav-menu');
-    navMenu.classList.remove('open');
+    if (navMenu) navMenu.classList.remove('open');
 
     // Scroll to top smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -244,15 +170,15 @@ document.querySelectorAll('.nav-link').forEach(link => {
 });
 
 // Logo Click Routing
-document.getElementById('nav-logo').addEventListener('click', (e) => {
+document.getElementById('nav-logo')?.addEventListener('click', (e) => {
     e.preventDefault();
     switchTab('home');
 });
 
 // Mobile menu toggle
-document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
+document.getElementById('mobile-menu-toggle')?.addEventListener('click', () => {
     const navMenu = document.getElementById('nav-menu');
-    navMenu.classList.toggle('open');
+    if (navMenu) navMenu.classList.toggle('open');
 });
 
 // Make switchTab available globally
@@ -262,114 +188,72 @@ window.switchTab = switchTab;
 // --- 2. INJECT TWEAKS PRODUCTS ---
 function loadTweaks() {
     if (!tweaksGrid) return;
-    tweaksGrid.innerHTML = TWEAKS_DATA.map(tweak => `
-        <div class="product-card glass-panel" id="card-${tweak.id}">
-            <div class="product-badge">${tweak.badge}</div>
-            <div class="product-icon"><i class="fa-solid ${tweak.icon}"></i></div>
-            <h3 class="product-title">${tweak.name}</h3>
-            <p class="product-desc">${tweak.desc}</p>
-            <ul class="product-specs">
-                ${tweak.specs.map(spec => `<li><i class="fa-solid fa-circle-check text-cyan"></i> ${spec}</li>`).join('')}
-            </ul>
-            <div class="product-footer">
-                <div class="product-price">
-                    <span class="price-label">السعر لمرة واحدة</span>
-                    <span class="price-value">${tweak.price} ر.س</span>
+    const isEn = document.documentElement.lang === 'en';
+    const lang = isEn ? 'en' : 'ar';
+    const currency = TRANSLATIONS[lang]['currency'] || 'ر.س';
+    const priceLabel = isEn ? 'One-time price' : 'السعر لمرة واحدة';
+    const addCartText = TRANSLATIONS[lang]['btn_add_cart'] || 'أضف للسلة';
+    const addedText = TRANSLATIONS[lang]['btn_added'] || 'تمت الإضافة';
+
+    tweaksGrid.innerHTML = TWEAKS_DATA.map(tweak => {
+        const name = TRANSLATIONS[lang][tweak.id] || tweak.name;
+        const desc = TRANSLATIONS[lang][tweak.id + '-desc'] || tweak.desc;
+        const specs = tweak.specs.map((spec, i) => TRANSLATIONS[lang][tweak.id + '-spec-' + i] || spec);
+        const badge = TRANSLATIONS[lang]['best_seller'] || tweak.badge;
+        const isInCart = cart.some(item => item.id === tweak.id);
+
+        return `
+            <div class="product-card glass-panel" id="card-${tweak.id}">
+                <div class="product-badge">${badge}</div>
+                <div class="product-icon"><i class="fa-solid ${tweak.icon}"></i></div>
+                <h3 class="product-title">${name}</h3>
+                <p class="product-desc">${desc}</p>
+                <ul class="product-specs">
+                    ${specs.map(spec => `<li><i class="fa-solid fa-circle-check text-cyan"></i> ${spec}</li>`).join('')}
+                </ul>
+                <div class="product-footer">
+                    <div class="product-price">
+                        <span class="price-label">${priceLabel}</span>
+                        <span class="price-value">${tweak.price} ${currency}</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="addToCart('${tweak.id}', '${tweak.name}', ${tweak.price}, 'tweak')">
+                        <i class="fa-solid fa-cart-plus"></i> ${isInCart ? addedText : addCartText}
+                    </button>
                 </div>
-                <button class="btn btn-primary" onclick="addToCart('${tweak.id}', '${tweak.name}', ${tweak.price}, 'tweak')">
-                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
-                </button>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 
 // --- 3. INJECT IPTV PACKAGES ---
 function loadIptv() {
     if (!iptvGrid) return;
-    iptvGrid.innerHTML = IPTV_DATA.map(pkg => `
-        <div class="iptv-card glass-panel ${pkg.popular ? 'popular' : ''}" id="card-${pkg.id}">
-            ${pkg.popular ? `<div class="popular-badge">${pkg.badge}</div>` : ''}
-            <div class="iptv-icon"><i class="fa-solid ${pkg.icon}"></i></div>
-            <h3 class="iptv-name">${pkg.name}</h3>
-            <div class="iptv-price">${pkg.price} <span>ر.س</span></div>
-            <ul class="iptv-features">
-                ${pkg.features.map(f => `<li><i class="fa-solid fa-square-check"></i> ${f}</li>`).join('')}
-            </ul>
-            <button class="btn ${pkg.popular ? 'btn-purple' : 'btn-secondary'} w-100" onclick="addToCart('${pkg.id}', '${pkg.name}', ${pkg.price}, 'iptv')">
-                <i class="fa-solid fa-cart-shopping"></i> اشترك الآن
-            </button>
-        </div>
-    `).join('');
-}
+    const isEn = document.documentElement.lang === 'en';
+    const lang = isEn ? 'en' : 'ar';
+    const currency = TRANSLATIONS[lang]['currency'] || 'ر.س';
+    const subscribeText = isEn ? 'Subscribe Now' : 'اشترك الآن';
 
-
-// --- 4. INJECT STEAM GAMES ---
-function loadGames(filterGenre = 'all', searchQuery = '') {
-    if (!steamGamesGrid) return;
-
-    let filtered = STEAM_GAMES_DATA;
-    if (filterGenre !== 'all') {
-        filtered = filtered.filter(g => g.genre === filterGenre);
-    }
-    if (searchQuery.trim() !== '') {
-        const query = searchQuery.toLowerCase();
-        filtered = filtered.filter(g => g.name.toLowerCase().includes(query));
-    }
-
-    if (filtered.length === 0) {
-        steamGamesGrid.innerHTML = `
-            <div class="empty-cart-msg" style="grid-column: 1 / -1; padding: 60px 0;">
-                <i class="fa-solid fa-circle-question"></i>
-                <p>عذراً، لم نجد أي ألعاب تطابق بحثك حالياً. تواصل معنا لتوفيرها لك خصيصاً!</p>
+    iptvGrid.innerHTML = IPTV_DATA.map(pkg => {
+        const name = TRANSLATIONS[lang][pkg.id] || pkg.name;
+        const badge = TRANSLATIONS[lang][pkg.id + '-badge'] || pkg.badge;
+        const features = pkg.features.map((feat, i) => TRANSLATIONS[lang][pkg.id + '-feat-' + i] || feat);
+        return `
+            <div class="iptv-card glass-panel ${pkg.popular ? 'popular' : ''}" id="card-${pkg.id}">
+                ${pkg.popular ? `<div class="popular-badge">${badge}</div>` : ''}
+                <div class="iptv-icon"><i class="fa-solid ${pkg.icon}"></i></div>
+                <h3 class="iptv-name">${name}</h3>
+                <div class="iptv-price">${pkg.price} <span>${currency}</span></div>
+                <ul class="iptv-features">
+                    ${features.map(f => `<li><i class="fa-solid fa-square-check"></i> ${f}</li>`).join('')}
+                </ul>
+                <button class="btn ${pkg.popular ? 'btn-purple' : 'btn-secondary'} w-100" onclick="addToCart('${pkg.id}', '${pkg.name}', ${pkg.price}, 'iptv')">
+                    <i class="fa-solid fa-cart-shopping"></i> ${subscribeText}
+                </button>
             </div>
         `;
-        return;
-    }
-
-    steamGamesGrid.innerHTML = filtered.map(game => `
-        <div class="game-card glass-panel" id="card-${game.id}">
-            <div class="game-cover-container">
-                <div class="game-cover-placeholder">
-                    <i class="fa-solid ${game.icon}"></i>
-                    <span>${game.name.substring(0, 10)}...</span>
-                </div>
-                <div class="game-genre-badge">${game.genre.toUpperCase()}</div>
-            </div>
-            <div class="game-info">
-                <h3 class="game-title">${game.name}</h3>
-                <div class="game-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <span>${game.rating} | تفعيل أوفلاين أصلي</span>
-                </div>
-                <div class="game-price-box">
-                    <span class="discount-price" style="font-size: 0.95rem; color: var(--primary-purple);"><i class="fa-solid fa-circle-check"></i> مشمولة بالبكج الأضخم</span>
-                </div>
-            </div>
-            <button class="btn btn-purple w-100" onclick="addToCart('steam-mega-bundle', 'البكج الأضخم لألعاب Steam (تفعيل أوفلاين: ${game.name})', 49, 'game-bundle')">
-                <i class="fa-solid fa-key"></i> تفعيل بالبكج الأضخم
-            </button>
-        </div>
-    `).join('');
-
+    }).join('');
 }
-
-// Game Search and Genre Filtering
-document.getElementById('game-search')?.addEventListener('input', (e) => {
-    const activeGenre = document.querySelector('.filter-tag.active')?.getAttribute('data-genre') || 'all';
-    loadGames(activeGenre, e.target.value);
-});
-
-document.querySelectorAll('.filter-tag').forEach(tag => {
-    tag.addEventListener('click', () => {
-        document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
-        tag.classList.add('active');
-        const genre = tag.getAttribute('data-genre');
-        const searchVal = document.getElementById('game-search')?.value || '';
-        loadGames(genre, searchVal);
-    });
-});
 
 
 // --- 5. IPTV CHANNEL LOOKUP SIMULATOR ---
@@ -378,9 +262,13 @@ const channelBtn = document.getElementById('channel-search-btn');
 const channelResultsBox = document.getElementById('channel-results-box');
 
 function handleChannelSearch() {
+    const isEn = document.documentElement.lang === 'en';
     const query = channelInput.value.trim().toLowerCase();
+    
     if (query === '') {
-        channelResultsBox.innerHTML = '<span class="text-red">يرجى كتابة اسم القناة أولاً!</span>';
+        channelResultsBox.innerHTML = isEn 
+            ? '<span class="text-red">Please type a channel name first!</span>' 
+            : '<span class="text-red">يرجى كتابة اسم القناة أولاً!</span>';
         return;
     }
 
@@ -392,14 +280,14 @@ function handleChannelSearch() {
         matched.forEach(ch => {
             const tag = document.createElement('div');
             tag.className = 'channel-tag text-green';
-            tag.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${ch} | متوفرة 4K`;
+            tag.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${ch} | ${isEn ? 'Available in 4K' : 'متوفرة 4K'}`;
             channelResultsBox.appendChild(tag);
         });
     } else {
         // Create an awesome placeholder result
         const tag = document.createElement('div');
         tag.className = 'channel-tag text-cyan';
-        tag.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${channelInput.value} | متوفرة في مكتبة الأفلام والمسلسلات طلبك مجاب! ✅`;
+        tag.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${channelInput.value} | ${isEn ? 'Available in movies & series library, your request is granted! ✅' : 'متوفرة في مكتبة الأفلام والمسلسلات طلبك مجاب! ✅'}`;
         channelResultsBox.appendChild(tag);
     }
 }
@@ -416,30 +304,18 @@ const diagnosticResultPanel = document.getElementById('diagnostic-result-panel')
 
 const SYMPTOMS_DIAGNOSIS = {
     overheat: {
-        title: 'ارتفاع حرارة المعالج وكارت الشاشة (Thermal Throttling)',
-        desc: 'الحل المقترح: تنظيف مروحة التبريد بالهواء المضغوط، تبديل المعجون الحراري (Thermal Paste) القديم بنوع احترافي مثل MX-6، وتثبيت باقة تويك K1 للتحكم بفولتية المعالج لتقليل درجة الحرارة حتى 15 درجة مئوية.',
-        recName: 'تنظيف وتغيير معجون حراري احترافي + تويك حماية',
         recId: 'pc-paste-service',
         recPrice: 150
     },
     bsod: {
-        title: 'الشاشة الزرقاء المتكررة (Blue Screen of Death)',
-        desc: 'الحل المقترح: فحص كابلات وتوصيلات الرام والهارد ديسك، التحقق من عدم تلف ملفات نظام الويندوز، وتثبيت نسخة ويندوز 10/11 برو أصلية ومستقرة تماماً مع تفعيل التعديل الاحترافي لتفادي أي أخطاء تعريفات مستقبلاً.',
-        recName: 'باقة تثبيت ويندوز أصلي مستقر وتويك ذهبي',
         recId: 'pc-windows-service',
         recPrice: 199
     },
     fps_drop: {
-        title: 'هبوط الفريمات والتقطيع المفاجئ (FPS Drops & Stuttering)',
-        desc: 'الحل المقترح: تنظيف تعريفات كارت الشاشة القديمة بالكامل بأداة DDU وتثبيت التعريف المتوافق مع نسختك، إيقاف خدمات الويندوز الخلفية التي تستهلك المعالج، وتثبيت باقة التعديل الاحترافية لمتجر K1 لتحقيق استقرار الفريمات بنسبة 100%.',
-        recName: 'باقة التعديل الاحترافية | Elite Tweak',
         recId: 'tweak-elite',
         recPrice: 39
     },
     slow_boot: {
-        title: 'الجهاز بطيء جداً عند التشغيل وفتح البرامج (Slow Loading)',
-        desc: 'الحل المقترح: ترقية هارد ديسك النظام القديم إلى هارد SSD حديث (M.2 NVMe)، إلغاء تفعيل البرامج التي تبدأ تلقائياً مع تشغيل الجهاز، وتهيئة الويندوز لاستخدام كافة طاقة معالجك لتسريع زمن الإقلاع لأقل من 10 ثوانٍ.',
-        recName: 'خدمة ترقية لـ SSD وضبط سرعة الإقلاع السريع',
         recId: 'pc-ssd-upgrade',
         recPrice: 120
     }
@@ -455,15 +331,24 @@ symptomButtons.forEach(btn => {
 
         const diag = SYMPTOMS_DIAGNOSIS[symptom];
         if (diag) {
+            const isEn = document.documentElement.lang === 'en';
+            const lang = isEn ? 'en' : 'ar';
+            const title = TRANSLATIONS[lang][symptom + '_title'];
+            const desc = TRANSLATIONS[lang][symptom + '_desc'];
+            const recName = TRANSLATIONS[lang][diag.recId];
+            const currency = TRANSLATIONS[lang]['currency'] || 'ر.س';
+            const solutionLabel = isEn ? 'Recommended Service:' : 'الخدمة الموصى بها كحل فوري:';
+            const addCartLabel = isEn ? 'Add Service to Cart' : 'إضافة الخدمة للسلة';
+
             diagnosticResultPanel.innerHTML = `
                 <div class="diagnostic-card">
-                    <h4><i class="fa-solid fa-stethoscope text-cyan"></i> ${diag.title}</h4>
-                    <p>${diag.desc}</p>
-                    <span class="rec-title">الخدمة الموصى بها كحل فوري:</span>
+                    <h4><i class="fa-solid fa-stethoscope text-cyan"></i> ${title}</h4>
+                    <p>${desc}</p>
+                    <span class="rec-title">${solutionLabel}</span>
                     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
-                        <span class="rec-badge"><i class="fa-solid fa-screwdriver-wrench"></i> ${diag.recName}</span>
-                        <button class="btn btn-green" onclick="addToCart('${diag.recId}', '${diag.recName}', ${diag.recPrice}, 'service')">
-                            <i class="fa-solid fa-cart-plus"></i> إضافة الخدمة للسلة (${diag.recPrice} ر.س)
+                        <span class="rec-badge"><i class="fa-solid fa-screwdriver-wrench"></i> ${recName}</span>
+                        <button class="btn btn-green" onclick="addToCart('${diag.recId}', '${recName}', ${diag.recPrice}, 'service')">
+                            <i class="fa-solid fa-cart-plus"></i> ${addCartLabel} (${diag.recPrice} ${currency})
                         </button>
                     </div>
                 </div>
@@ -476,32 +361,42 @@ symptomButtons.forEach(btn => {
 const pcBookingForm = document.getElementById('pc-booking-form');
 pcBookingForm?.addEventListener('submit', (e) => {
     e.preventDefault();
+    const isEn = document.documentElement.lang === 'en';
+    const lang = isEn ? 'en' : 'ar';
     const name = document.getElementById('book-name').value;
     const phone = document.getElementById('book-phone').value;
     const service = document.getElementById('book-service').value;
     const specs = document.getElementById('book-specs').value;
 
     const serviceMap = {
-        repair: 'صيانة جهاز وحل مشكلة برمجية/هاردوير',
-        assembly: 'تجميع PC جديد وتركيبه',
-        clean_repaste: 'تنظيف كامل وتغيير المعجون الحراري',
-        install_windows_tweaks: 'تثبيت ويندوز أصلي مع التويك الاحترافي'
+        repair: TRANSLATIONS[lang]['opt_repair'] || 'صيانة جهاز وحل مشكلة برمجية/هاردوير',
+        assembly: TRANSLATIONS[lang]['opt_assembly'] || 'تجميع PC جديد وتركيبه',
+        clean_repaste: TRANSLATIONS[lang]['opt_clean_repaste'] || 'تنظيف كامل وتغيير المعجون الحراري',
+        install_windows_tweaks: TRANSLATIONS[lang]['opt_install_windows_tweaks'] || 'تثبيت ويندوز أصلي مع التويك الاحترافي'
     };
 
     const bookingId = 'BK-' + Math.floor(1000 + Math.random() * 9000);
 
+    const ticketLabel = isEn ? 'Ticket ID:' : 'رقم طلب الصيانة:';
+    const clientLabel = isEn ? 'Client:' : 'العميل:';
+    const phoneLabel = isEn ? 'Phone:' : 'الجوال:';
+    const serviceLabel = isEn ? 'Required Service:' : 'الخدمة المطلوبة:';
+    const specsLabel = isEn ? 'Device Specs:' : 'مواصفات الجهاز:';
+
     // Inject into success booking modal
     bookingDetails.innerHTML = `
-        <div class="receipt-row"><span>رقم طلب الصيانة:</span><strong class="text-cyan">${bookingId}</strong></div>
-        <div class="receipt-row"><span>العميل:</span><span>${name}</span></div>
-        <div class="receipt-row"><span>الجوال:</span><span>${phone}</span></div>
-        <div class="receipt-row"><span>الخدمة المطلوبة:</span><span>${serviceMap[service] || service}</span></div>
-        ${specs ? `<div class="receipt-row"><span>مواصفات الجهاز:</span><span style="font-size:0.8rem; color:var(--text-gray);">${specs}</span></div>` : ''}
+        <div class="receipt-row"><span>${ticketLabel}</span><strong class="text-cyan">${bookingId}</strong></div>
+        <div class="receipt-row"><span>${clientLabel}</span><span>${name}</span></div>
+        <div class="receipt-row"><span>${phoneLabel}</span><span>${phone}</span></div>
+        <div class="receipt-row"><span>${serviceLabel}</span><span>${serviceMap[service] || service}</span></div>
+        ${specs ? `<div class="receipt-row"><span>${specsLabel}</span><span style="font-size:0.8rem; color:var(--text-gray);">${specs}</span></div>` : ''}
     `;
 
     // Set WhatsApp confirm link
-    const bookingSpecs = specs ? specs : 'لا توجد';
-    const waBookingText = `مرحباً متجر K1 Tech، أرغب بحجز موعد صيانة/تجميع PC:%0A%0A*تفاصيل الحجز:*%0A- رقم الطلب: *${bookingId}*%0A- الاسم: *${name}*%0A- رقم التواصل: *${phone}*%0A- الخدمة: *${serviceMap[service] || service}*%0A- مواصفات الجهاز: *${bookingSpecs}*%0A%0Aالرجاء التواصل لتأكيد الموعد.`;
+    const bookingSpecs = specs ? specs : (isEn ? 'None' : 'لا توجد');
+    const waBookingText = isEn 
+        ? `Hello K1 Tech, I want to book a PC maintenance/assembly appointment:%0A%0A*Booking Details:*%0A- Ticket ID: *${bookingId}*%0A- Name: *${name}*%0A- Phone: *${phone}*%0A- Service: *${serviceMap[service] || service}*%0A- Specs: *${bookingSpecs}*%0A%0APlease contact me to confirm the appointment.`
+        : `مرحباً متجر K1 Tech، أرغب بحجز موعد صيانة/تجميع PC:%0A%0A*تفاصيل الحجز:*%0A- رقم الطلب: *${bookingId}*%0A- الاسم: *${name}*%0A- رقم التواصل: *${phone}*%0A- الخدمة: *${serviceMap[service] || service}*%0A- مواصفات الجهاز: *${bookingSpecs}*%0A%0Aالرجاء التواصل لتأكيد الموعد.`;
 
     const whatsappBookingConfirmBtn = document.getElementById('whatsapp-booking-confirm-btn');
     if (whatsappBookingConfirmBtn) {
@@ -522,11 +417,11 @@ bookingSuccessCloseBtn?.addEventListener('click', () => {
 
 function toggleCartDrawer(open = true) {
     if (open) {
-        cartDrawer.classList.add('open');
-        cartOverlay.classList.add('open');
+        cartDrawer?.classList.add('open');
+        cartOverlay?.classList.add('open');
     } else {
-        cartDrawer.classList.remove('open');
-        cartOverlay.classList.remove('open');
+        cartDrawer?.classList.remove('open');
+        cartOverlay?.classList.remove('open');
     }
 }
 
@@ -537,8 +432,10 @@ cartOverlay?.addEventListener('click', () => toggleCartDrawer(false));
 function addToCart(id, name, price, type) {
     // Check if item already in cart
     const exists = cart.find(item => item.id === id);
+    const isEn = document.documentElement.lang === 'en';
+    
     if (exists) {
-        alert('هذا المنتج موجود بالفعل في سلة مشترياتك!');
+        alert(isEn ? 'This product is already in your cart!' : 'هذا المنتج موجود بالفعل في سلة مشترياتك!');
         toggleCartDrawer(true);
         return;
     }
@@ -555,37 +452,48 @@ function removeFromCart(id) {
 
 function updateCartUI() {
     // Update Badge count
-    cartBadgeCount.textContent = cart.length;
+    if (cartBadgeCount) cartBadgeCount.textContent = cart.length;
+
+    const isEn = document.documentElement.lang === 'en';
+    const lang = isEn ? 'en' : 'ar';
+    const currency = TRANSLATIONS[lang]['currency'] || 'ر.س';
 
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `
-            <div class="empty-cart-msg">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <p>سلتك فارغة حالياً. تصفح الموقع وأضف ما ترغب به!</p>
-            </div>
-        `;
-        cartTotalValue.textContent = '0.00 ر.س';
-        checkoutStartBtn.disabled = true;
+        if (cartItemsContainer) {
+            cartItemsContainer.innerHTML = TRANSLATIONS[lang]['cart_empty'] || `
+                <div class="empty-cart-msg">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <p>سلتك فارغة حالياً. تصفح الموقع وأضف ما ترغب به!</p>
+                </div>
+            `;
+        }
+        if (cartTotalValue) cartTotalValue.textContent = `0.00 ${currency}`;
+        if (checkoutStartBtn) checkoutStartBtn.disabled = true;
         return;
     }
 
-    // Render cart items
-    cartItemsContainer.innerHTML = cart.map(item => `
-        <div class="cart-item">
-            <div class="cart-item-details">
-                <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">${item.price} ر.س</div>
-            </div>
-            <button class="cart-item-remove" onclick="removeFromCart('${item.id}')" aria-label="حذف">
-                <i class="fa-solid fa-trash-can"></i>
-            </button>
-        </div>
-    `).join('');
+    // Render cart items with translation lookup
+    if (cartItemsContainer) {
+        cartItemsContainer.innerHTML = cart.map(item => {
+            const displayName = TRANSLATIONS[lang][item.id] || item.name;
+            return `
+                <div class="cart-item">
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${displayName}</div>
+                        <div class="cart-item-price">${item.price} ${currency}</div>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart('${item.id}')" aria-label="حذف">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            `;
+        }).join('');
+    }
 
     // Update total price
     const total = cart.reduce((sum, item) => sum + item.price, 0);
-    cartTotalValue.textContent = `${total.toFixed(2)} ر.س`;
-    checkoutStartBtn.disabled = false;
+    if (cartTotalValue) cartTotalValue.textContent = `${total.toFixed(2)} ${currency}`;
+    if (checkoutStartBtn) checkoutStartBtn.disabled = false;
 }
 
 // Make cart functions global
@@ -598,18 +506,21 @@ window.removeFromCart = removeFromCart;
 checkoutStartBtn?.addEventListener('click', () => {
     toggleCartDrawer(false);
 
-    // Set Totals inside Checkout modal
+    const isEn = document.documentElement.lang === 'en';
+    const lang = isEn ? 'en' : 'ar';
+    const currency = TRANSLATIONS[lang]['currency'] || 'ر.س';
     const total = cart.reduce((sum, item) => sum + item.price, 0);
-    summarySubtotal.textContent = `${total.toFixed(2)} ر.س`;
-    summaryTotal.textContent = `${total.toFixed(2)} ر.س`;
+    
+    if (summarySubtotal) summarySubtotal.textContent = `${total.toFixed(2)} ${currency}`;
+    if (summaryTotal) summaryTotal.textContent = `${total.toFixed(2)} ${currency}`;
 
     // Show step 1
     goToCheckoutStep(1);
-    checkoutModal.style.display = 'flex';
+    if (checkoutModal) checkoutModal.style.display = 'flex';
 });
 
 function closeCheckoutModal() {
-    checkoutModal.style.display = 'none';
+    if (checkoutModal) checkoutModal.style.display = 'none';
 }
 
 checkoutCloseBtn?.addEventListener('click', closeCheckoutModal);
@@ -617,15 +528,15 @@ checkoutOverlay?.addEventListener('click', closeCheckoutModal);
 
 function goToCheckoutStep(step) {
     if (step === 1) {
-        stepTab1.classList.add('active-step');
-        stepTab2.classList.remove('active-step');
-        stepContent1.classList.add('active-content');
-        stepContent2.classList.remove('active-content');
+        stepTab1?.classList.add('active-step');
+        stepTab2?.classList.remove('active-step');
+        stepContent1?.classList.add('active-content');
+        stepContent2?.classList.remove('active-content');
     } else if (step === 2) {
-        stepTab1.classList.remove('active-step');
-        stepTab2.classList.add('active-step');
-        stepContent1.classList.remove('active-content');
-        stepContent2.classList.add('active-content');
+        stepTab1?.classList.remove('active-step');
+        stepTab2?.classList.add('active-step');
+        stepContent1?.classList.remove('active-content');
+        stepContent2?.classList.add('active-content');
     }
 }
 
@@ -649,116 +560,72 @@ document.querySelectorAll('.pay-option').forEach(option => {
         const method = option.getAttribute('data-method');
         selectedPaymentMethod = method;
 
-        const payFieldsApplePay = document.getElementById('pay-fields-applepay');
-
         // Toggle mockup inputs
-        if (method === 'stcpay') {
-            payFieldsStcPay.style.display = 'block';
-            payFieldsCredit.style.display = 'none';
-            if (payFieldsApplePay) payFieldsApplePay.style.display = 'none';
-        } else if (method === 'credit' || method === 'mada') {
-            payFieldsStcPay.style.display = 'none';
-            payFieldsCredit.style.display = 'block';
-            if (payFieldsApplePay) payFieldsApplePay.style.display = 'none';
-        } else if (method === 'applepay') {
-            payFieldsStcPay.style.display = 'none';
-            payFieldsCredit.style.display = 'none';
-            if (payFieldsApplePay) payFieldsApplePay.style.display = 'block';
-        }
+        if (payFieldsStcPay) payFieldsStcPay.style.display = (method === 'stcpay') ? 'block' : 'none';
+        if (payFieldsCredit) payFieldsCredit.style.display = (method === 'credit' || method === 'mada') ? 'block' : 'none';
+        if (payFieldsWhatsapp) payFieldsWhatsapp.style.display = (method === 'whatsapp') ? 'block' : 'none';
     });
 });
 
-// Apple Pay Flow Simulation
-function triggerApplePayFlow() {
-    const name = document.getElementById('cust-name').value;
-    const phone = document.getElementById('cust-phone').value;
-    const email = document.getElementById('cust-email').value;
-
-    if (!name || !phone || !email) {
-        alert('برجاء ملء بيانات التواصل في الخطوة السابقة!');
-        goToCheckoutStep(1);
-        return;
-    }
-
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    document.getElementById('apple-pay-sheet-total').textContent = `${total.toFixed(2)} ر.س`;
-
-    const sheet = document.getElementById('apple-pay-simulation-sheet');
-    sheet.classList.add('open');
-
-    // Reset scanner state
-    const scanner = document.getElementById('face-id-scanner');
-    const textEl = document.getElementById('apple-pay-verification-text');
-    scanner.classList.remove('success', 'scanning');
-    textEl.textContent = 'انقر على البصمة لمسح الهوية وإتمام الدفع...';
-}
-
-document.getElementById('apple-pay-trigger-btn')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    triggerApplePayFlow();
-});
-
-document.getElementById('apple-pay-sheet-cancel')?.addEventListener('click', () => {
-    document.getElementById('apple-pay-simulation-sheet').classList.remove('open');
-});
-
-document.getElementById('face-id-scanner')?.addEventListener('click', () => {
-    const scanner = document.getElementById('face-id-scanner');
-    const textEl = document.getElementById('apple-pay-verification-text');
-
-    if (scanner.classList.contains('scanning') || scanner.classList.contains('success')) return;
-
-    scanner.classList.add('scanning');
-    textEl.textContent = 'جاري مسح البصمة والتحقق...';
-
-    setTimeout(() => {
-        scanner.classList.remove('scanning');
-        scanner.classList.add('success');
-        textEl.textContent = 'تم التحقق والدفع بنجاح! ✅';
-
-        setTimeout(() => {
-            // Hide sheet
-            document.getElementById('apple-pay-simulation-sheet').classList.remove('open');
-            // Complete checkout order
-            completeCheckoutOrder();
-        }, 1000);
-    }, 1500);
-});
-
 function completeCheckoutOrder() {
+    const isEn = document.documentElement.lang === 'en';
+    const lang = isEn ? 'en' : 'ar';
+    const currency = TRANSLATIONS[lang]['currency'] || 'ر.س';
+
     const name = document.getElementById('cust-name').value;
     const phone = document.getElementById('cust-phone').value;
     const email = document.getElementById('cust-email').value;
-    const notes = document.getElementById('cust-notes').value || 'لا توجد ملاحظات';
+    const notes = document.getElementById('cust-notes').value || (isEn ? 'None' : 'لا توجد ملاحظات');
 
     const orderId = 'K1-' + Math.floor(10000 + Math.random() * 90000);
     const total = cart.reduce((sum, item) => sum + item.price, 0);
 
     const paymentLabels = {
-        applepay: 'Apple Pay ',
-        mada: 'مدى Mada 💳',
-        stcpay: 'STC Pay 📱',
-        credit: 'بطاقة ائتمانية 💳'
+        whatsapp: TRANSLATIONS[lang]['pay_whatsapp'] || 'استكمال الدفع عن طريق الواتساب',
+        mada: TRANSLATIONS[lang]['pay_mada'] || 'مدى',
+        stcpay: TRANSLATIONS[lang]['pay_stcpay'] || 'STC Pay',
+        credit: TRANSLATIONS[lang]['pay_credit'] || 'بطاقة ائتمانية'
     };
+
+    const invoiceLabel = isEn ? 'Invoice ID:' : 'رقم الفاتورة:';
+    const clientLabel = isEn ? 'Client:' : 'العميل:';
+    const phoneLabel = isEn ? 'Contact Phone:' : 'رقم التواصل:';
+    const totalLabel = isEn ? 'Grand Total:' : 'المجموع الكلي:';
+    const methodLabel = isEn ? 'Payment Method:' : 'طريقة الدفع:';
+
+    // Strip HTML icons from payment labels for checkout summary text
+    let methodText = paymentLabels[selectedPaymentMethod] || selectedPaymentMethod;
+    methodText = methodText.replace(/<[^>]*>/g, '').trim();
 
     // Build Receipt content
     receiptDetails.innerHTML = `
-        <div class="receipt-row"><span>رقم الفاتورة:</span><strong class="text-cyan">${orderId}</strong></div>
-        <div class="receipt-row"><span>العميل:</span><span>${name}</span></div>
-        <div class="receipt-row"><span>رقم التواصل:</span><span>${phone}</span></div>
+        <div class="receipt-row"><span>${invoiceLabel}</span><strong class="text-cyan">${orderId}</strong></div>
+        <div class="receipt-row"><span>${clientLabel}</span><span>${name}</span></div>
+        <div class="receipt-row"><span>${phoneLabel}</span><span>${phone}</span></div>
         <hr style="border:0; border-top: 1px dashed rgba(255,255,255,0.1); margin:10px 0;">
-        ${cart.map(item => `<div class="receipt-row"><span>- ${item.name}</span><span>${item.price} ر.س</span></div>`).join('')}
+        ${cart.map(item => {
+            const displayName = TRANSLATIONS[lang][item.id] || item.name;
+            return `<div class="receipt-row"><span>- ${displayName}</span><span>${item.price} ${currency}</span></div>`;
+        }).join('')}
         <hr style="border:0; border-top: 1px dashed rgba(255,255,255,0.1); margin:10px 0;">
-        <div class="receipt-row"><strong>المجموع الكلي:</strong><strong class="text-cyan">${total} ر.س</strong></div>
-        <div class="receipt-row"><span>طريقة الدفع:</span><span>${paymentLabels[selectedPaymentMethod] || selectedPaymentMethod}</span></div>
+        <div class="receipt-row"><strong>${totalLabel}</strong><strong class="text-cyan">${total} ${currency}</strong></div>
+        <div class="receipt-row"><span>${methodLabel}</span><span>${methodText}</span></div>
     `;
 
     // WhatsApp Message URL Generator
-    const itemsListText = cart.map(item => `- ${item.name} (${item.price} ر.س)`).join('%0A');
-    const waText = `مرحباً متجر K1 Tech، قمت بطلب شراء من الموقع:%0A%0A*تفاصيل الطلب:*%0A- رقم الفاتورة: *${orderId}*%0A- الاسم: *${name}*%0A- الجوال: *${phone}*%0A- طريقة الدفع: *${(paymentLabels[selectedPaymentMethod] || selectedPaymentMethod).toUpperCase()}*%0A- الملاحظات: *${notes}*%0A%0A*المنتجات:*%0A${itemsListText}%0A%0A*المبلغ الإجمالي:* *${total} ر.س*%0A%0Aالرجاء تفعيل الخدمة لي في أسرع وقت.`;
+    const itemsListText = cart.map(item => {
+        const displayName = TRANSLATIONS[lang][item.id] || item.name;
+        return `- ${displayName} (${item.price} ${currency})`;
+    }).join('%0A');
+    
+    const waText = isEn 
+        ? `Hello K1 Tech, I have placed an order on the website:%0A%0A*Order Details:*%0A- Invoice ID: *${orderId}*%0A- Name: *${name}*%0A- Phone: *${phone}*%0A- Payment Method: *${methodText.toUpperCase()}*%0A- Notes: *${notes}*%0A%0A*Products:*%0A${itemsListText}%0A%0A*Total Amount:* *${total} ${currency}*%0A%0APlease activate the service for me as soon as possible.`
+        : `مرحباً متجر K1 Tech، قمت بطلب شراء من الموقع:%0A%0A*تفاصيل الطلب:*%0A- رقم الفاتورة: *${orderId}*%0A- الاسم: *${name}*%0A- الجوال: *${phone}*%0A- طريقة الدفع: *${methodText.toUpperCase()}*%0A- الملاحظات: *${notes}*%0A%0A*المنتجات:*%0A${itemsListText}%0A%0A*المبلغ الإجمالي:* *${total} ر.س*%0A%0Aالرجاء تفعيل الخدمة لي في أسرع وقت.`;
 
     // Set WhatsApp link
-    whatsappConfirmBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`;
+    if (whatsappConfirmBtn) {
+        whatsappConfirmBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`;
+    }
 
     // Clear cart
     cart = [];
@@ -766,7 +633,7 @@ function completeCheckoutOrder() {
 
     // Switch Modals
     closeCheckoutModal();
-    successModal.style.display = 'flex';
+    if (successModal) successModal.style.display = 'flex';
 }
 
 // Final checkout click -> processes order & generates receipt
@@ -776,20 +643,17 @@ checkoutSubmitBtn?.addEventListener('click', () => {
     const email = document.getElementById('cust-email').value;
 
     if (!name || !phone || !email) {
-        alert('برجاء ملء بيانات التواصل في الخطوة السابقة!');
+        const isEn = document.documentElement.lang === 'en';
+        alert(isEn ? 'Please fill out the contact details in the previous step!' : 'برجاء ملء بيانات التواصل في الخطوة السابقة!');
         goToCheckoutStep(1);
         return;
     }
 
-    if (selectedPaymentMethod === 'applepay') {
-        triggerApplePayFlow();
-    } else {
-        completeCheckoutOrder();
-    }
+    completeCheckoutOrder();
 });
 
 successCloseBtn?.addEventListener('click', () => {
-    successModal.style.display = 'none';
+    if (successModal) successModal.style.display = 'none';
 });
 
 
@@ -797,9 +661,10 @@ successCloseBtn?.addEventListener('click', () => {
 document.querySelectorAll('.faq-question').forEach(button => {
     button.addEventListener('click', () => {
         const item = button.parentElement;
-        item.classList.toggle('active');
+        item?.classList.toggle('active');
     });
 });
+
 
 // --- 10. THEME & LANGUAGE TOGGLE ---
 const themeToggleBtn = document.getElementById('theme-toggle');
@@ -811,37 +676,87 @@ if (themeToggleBtn) {
     });
 }
 
+function applyLanguage(lang) {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl';
+    localStorage.setItem('k1-lang', lang);
+
+    const langToggleBtn = document.getElementById('lang-toggle');
+    if (langToggleBtn) {
+        langToggleBtn.textContent = lang === 'en' ? 'AR' : 'EN';
+    }
+
+    // Translate statically tagged elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
+            el.innerHTML = TRANSLATIONS[lang][key];
+        }
+    });
+
+    // Translate placeholder attributes
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
+            el.placeholder = TRANSLATIONS[lang][key];
+        }
+    });
+
+    // Update dynamically loaded elements
+    loadTweaks();
+    loadIptv();
+
+    // Re-translate Booking dropdown selector
+    const serviceSelect = document.getElementById('book-service');
+    if (serviceSelect) {
+        const optSelect = serviceSelect.querySelector('option[value=""]');
+        if (optSelect) optSelect.textContent = TRANSLATIONS[lang]['opt_select'] || 'اختر الخدمة';
+        const optRepair = serviceSelect.querySelector('option[value="repair"]');
+        if (optRepair) optRepair.textContent = TRANSLATIONS[lang]['opt_repair'] || 'صيانة جهاز وحل مشكلة برمجية/هاردوير';
+        const optAssembly = serviceSelect.querySelector('option[value="assembly"]');
+        if (optAssembly) optAssembly.textContent = TRANSLATIONS[lang]['opt_assembly'] || 'تجميع PC جديد وتركيبه';
+        const optClean = serviceSelect.querySelector('option[value="clean_repaste"]');
+        if (optClean) optClean.textContent = TRANSLATIONS[lang]['opt_clean_repaste'] || 'تنظيف كامل وتغيير المعجون الحراري';
+        const optTweak = serviceSelect.querySelector('option[value="install_windows_tweaks"]');
+        if (optTweak) optTweak.textContent = TRANSLATIONS[lang]['opt_install_windows_tweaks'] || 'تثبيت ويندوز أصلي مع التويك الاحترافي';
+    }
+
+    // Re-diagnose active symptom or set defaults
+    if (currentSymptom) {
+        const activeBtn = document.querySelector(`.symptom-btn[data-symptom="${currentSymptom}"]`);
+        if (activeBtn) {
+            // Trigger click simulation to refresh text
+            const isBtnActive = activeBtn.classList.contains('active');
+            activeBtn.click();
+            if (isBtnActive) activeBtn.classList.add('active'); // Maintain state styling
+        }
+    } else {
+        if (diagnosticResultPanel) {
+            diagnosticResultPanel.innerHTML = TRANSLATIONS[lang]['diag_placeholder'] || `
+                <div class="result-placeholder">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    <p>اضغط على أحد الأعراض بالأعلى لتشغيل الفحص التلقائي...</p>
+                </div>
+            `;
+        }
+    }
+
+    // Refresh shopping cart items translations
+    updateCartUI();
+}
+
 const langToggleBtn = document.getElementById('lang-toggle');
 if (langToggleBtn) {
     langToggleBtn.addEventListener('click', () => {
         const isEn = document.documentElement.lang === 'en';
-        if (isEn) {
-            document.documentElement.lang = 'ar';
-            document.documentElement.dir = 'rtl';
-            langToggleBtn.textContent = 'EN';
-            document.querySelector('.nav-link[data-tab="home"]').innerHTML = '<i class="fa-solid fa-house"></i> الرئيسية';
-            document.querySelector('.nav-link[data-tab="tweaks"]').innerHTML = '<i class="fa-solid fa-gauge-high"></i> التويك والتحسين';
-            document.querySelector('.nav-link[data-tab="iptv"]').innerHTML = '<i class="fa-solid fa-tv"></i> اشتراكات IPTV';
-            document.querySelector('.nav-link[data-tab="repair"]').innerHTML = '<i class="fa-solid fa-screwdriver-wrench"></i> الصيانة والتجميعات';
-            document.querySelector('.nav-link[data-tab="steam"]').innerHTML = '<i class="fa-solid fa-gamepad"></i> ألعاب Steam';
-        } else {
-            document.documentElement.lang = 'en';
-            document.documentElement.dir = 'ltr';
-            langToggleBtn.textContent = 'AR';
-            document.querySelector('.nav-link[data-tab="home"]').innerHTML = '<i class="fa-solid fa-house"></i> Home';
-            document.querySelector('.nav-link[data-tab="tweaks"]').innerHTML = '<i class="fa-solid fa-gauge-high"></i> Tweaks & Boost';
-            document.querySelector('.nav-link[data-tab="iptv"]').innerHTML = '<i class="fa-solid fa-tv"></i> IPTV Subscriptions';
-            document.querySelector('.nav-link[data-tab="repair"]').innerHTML = '<i class="fa-solid fa-screwdriver-wrench"></i> PC Repair & Builds';
-            document.querySelector('.nav-link[data-tab="steam"]').innerHTML = '<i class="fa-solid fa-gamepad"></i> Steam Games';
-        }
+        applyLanguage(isEn ? 'ar' : 'en');
     });
 }
 
 // --- 11. INITIALIZATION ---
 window.addEventListener('DOMContentLoaded', () => {
-    loadTweaks();
-    loadIptv();
-    loadGames();
+    const savedLang = localStorage.getItem('k1-lang') || 'ar';
+    applyLanguage(savedLang);
 
     // Initialize WhatsApp floating button
     const floatWaBtn = document.getElementById('whatsapp-floating-btn');
